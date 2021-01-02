@@ -9,13 +9,10 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 const {secret} = require('./config/config');
-const bcrypt = require('bcryptjs');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-//Database
-const User = require('./models/User');
-const Role = require('./models/Role');
+
 
 
 //Common config of the server
