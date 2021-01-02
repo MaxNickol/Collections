@@ -1,13 +1,11 @@
 const User = require('../models/User');
 const Role = require('../models/Role');
-const jwt = require('jsonwebtoken');
+
 const bcrypt = require('bcryptjs');
 const {validationResult} = require('express-validator');
 const {secret} = require('../config/config');
+const generateAccessToken = require('../utils/generateJWT');
 
-const generateAccessToken = (id, roles) => {
-   return jwt.sign({id, roles}, secret, {expiresIn: "2h"});
-}
 
 
 class authController {
@@ -80,6 +78,26 @@ class authController {
         } catch(e) {
 
         }
+    }
+
+
+    async succesGoogle(req, res) {
+        if(req.user) {
+            const token = generateAccessToken(req.user._id, req.user.roles);
+             res.json({message: "You are logged in", token: token});
+         }
+         else { 
+             res.json({message: "Wrong request"})
+         }
+    }
+
+    async failedGoogle(req, res) {
+        res.json({message: "Invalid credentials. Logging in failed"})
+    }
+
+    async logoutGoogle(req, res) {
+        req.logout();
+        res.redirect('/');
     }
 }
 

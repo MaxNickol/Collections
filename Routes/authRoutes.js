@@ -3,8 +3,16 @@ const controller = require('../Controllers/authController');
 const {check} = require('express-validator');
 
 const rolesMiddleware = require('../middleware/rolesMiddleware');
+const passport = require('passport');
+
+
 
 const router = new Router();
+
+
+router.get('/success', controller.succesGoogle);
+router.get('/failure', controller.failedGoogle);
+router.get('/logout', controller.logoutGoogle);
 
 router.post('/registration', [
     check("username", "Username can\'t be blank").notEmpty(),
@@ -14,5 +22,8 @@ router.post('/registration', [
 router.post('/login', controller.login);
 router.get('/users', rolesMiddleware(["ADMIN", "MODERATOR", "USER"]), controller.getUsers);
 
+//Registration with google using passport.js
+router.get('/google', passport.authenticate('google', {scope: ['profile', 'email']}))
+router.get('/google/callback', passport.authenticate('google', {successRedirect: '/auth/success', failureRedirect: '/auth/failure'}))
 
 module.exports = router;
