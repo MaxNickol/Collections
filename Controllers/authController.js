@@ -35,7 +35,9 @@ class authController {
 
                 await user.save();
 
-                return res.status(201).json({message: `User ${username} has been created`})
+                const token = generateAccessToken(user._id, user.roles);
+
+                return res.status(201).json({token, username: user.username, roles: user.roles})
             }
 
 
@@ -63,7 +65,7 @@ class authController {
 
             const token = generateAccessToken(user._id, user.roles);
 
-            res.status(200).json({token})
+            res.status(200).json({token, roles:user.roles, username: user.username});
 
         } catch(e) {
             console.log(e);
