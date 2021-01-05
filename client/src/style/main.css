@@ -113,6 +113,86 @@ html, body, #root {
     border-radius: 8px;
 }
 
+
+/* <------------------------------------- Profile-info -------------------------------------> */
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
+    width: calc(100% - 10%);
+    height: calc(100% - 10%);
+    left: 50%;
+    top: 50%;
+    background-color: rgba(146, 134, 122, 0.5);
+    border: 1px solid #000000;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    overflow-y: auto;
+}
+
+.info-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: 2%;
+    margin-top: 2%;
+    width: 35%;
+    height: fit-content;
+    background-color: rgba(146, 134, 122, 0.7);
+    border: 1px solid #000000;
+    border-radius: 8px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+
+.info-wrapper > * {
+    padding: 20px 0px 0px 3%;
+    font-size: 30px;
+    font-weight: 300;
+    color: rgba(36,36,36);
+
+}
+
+
+.create-btn { 
+    display: inline-block;
+    font-weight: 400;
+    width: fit-content;
+    height: fit-content;
+    color: #212529;
+    margin-left:2%;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid #000000;
+    padding: .375rem .75rem;
+    font-size: 22px;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+/* <------------------------------------- END OF INFO -------------------------------------> */
+
+/* <------------------------------------- Scrollbar in profile view -------------------------------------> */
+.profile::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 8px;
+}
+
+.profile::-webkit-scrollbar-thumb {
+    background: rgba(169, 169, 169, 0.5);
+    border-radius: 8px;
+  }
+
+/* <--------------------------------------------------------------------------> */
+
+
+
 .icons-wrapper { 
     display: flex;
     flex-direction: row;

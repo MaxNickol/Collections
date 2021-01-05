@@ -1,8 +1,11 @@
 const {Schema, model} = require('mongoose');
 
 const ItemSchema = new Schema({
+    collection_id: {type:String, required:true, ref:'Collections'},
     title: {type:String, required:true, trim: true},
     tags: [{type:String, required:true}],
+    comments: [{type: String, required: false}],
+    likes: {type: Number, required: false},
     string_field1: {type:String, required:false},
     string_field2: {type:String, required:false},
     string_field3: {type:String, required:false},

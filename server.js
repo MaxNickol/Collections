@@ -3,6 +3,7 @@ const http = require('http');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const authRouter = require('./Routes/authRoutes');
+const apiRouter = require('./Routes/apiRoutes');
 
 // Modules for auth and registration from social networks
 const passport = require('passport');
@@ -45,6 +46,7 @@ require('./config/passport.config')(passport);
 
 //Auth middlewares
 app.use('/auth', authRouter);
+app.use('/api', apiRouter);
 
 
 

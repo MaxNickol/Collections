@@ -1,4 +1,5 @@
 import React, {useContext} from 'react';
+import {useStorage} from '../hooks/useStorage';
 import {credsContext} from '../context/credsContext';
 import {ReactComponent as UserSVG} from '../layout/User.svg';
 import {ReactComponent as SettingsSVG} from '../layout/settings.svg';
@@ -8,28 +9,34 @@ import {ReactComponent as PowerButton} from '../layout/power-button.svg';
 import {ReactComponent as SignIn} from '../layout/login.svg';
 import { NavLink } from 'react-router-dom';
 
-export const NavBar = ({onClick, onExit}) => { 
+export const NavBar = ({clickCatcher}) => { 
 
-
+    const user = useStorage();
     const creds = useContext(credsContext);
 
+    let settings;
+
+    if(user && user.roles[0] ==="ADMIN") {
+        settings = <SettingsSVG id="Settings" />
+    }
+
     return(
-        <div className="NavBar">
+        <div className="NavBar" onClick={(e) => clickCatcher(e)}>
 
             {creds.isAuth ? (
                 <>
-                <UserSVG />
-                <SearchSVG />
+                <NavLink to="/profile" activeClassName="active"><UserSVG id="Profile"/></NavLink>
+                <SearchSVG id="Search"/>
                 <PlusSVG />
-                <SettingsSVG />
-    
+                {settings}
+
                 <div className="button-wrapper">
-                    <PowerButton onClick={() => onExit()}/>
+                    <PowerButton id="Logout"/>
                 </div>
                 </>
             ) : (
                 <>
-                <NavLink to="/registration" activeClassName="active"><SignIn onClick={() => onClick()} /></NavLink>
+                <NavLink to="/registration" activeClassName="active"><SignIn id="Login"/></NavLink>
                 <SearchSVG />
                 </>
             )}

@@ -5,7 +5,7 @@ import {ReactComponent as GitHub} from '../layout/github.svg';
 import {ReactComponent as Confirm} from '../layout/confirm.svg';
 import axios from 'axios';
 
-export const Login = ({onClose}) => {
+export const Login = ({onClose, closeHandler}) => {
 
     const [form, setForm] = useState({
         username: '',
@@ -24,7 +24,13 @@ export const Login = ({onClose}) => {
             password: form.password
         });
         
-        context.login(response.data.token, response.data.username, response.data.roles);
+        if(response.data.token){
+            context.login(response.data.token, response.data.username, response.data.roles);
+            closeHandler.setRegister(false);
+            closeHandler.setSignIn(false);
+        }
+
+        
     }
 
     return(
