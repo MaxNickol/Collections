@@ -4,6 +4,7 @@ import { NavBar } from './components/NavBar';
 import {Registration} from './components/Registration';
 import {Login} from './components/Login';
 import {Profile} from './components/Profile';
+import {CreateCollection} from './components/CreateCollection';
 import {useCreds} from './hooks/useCreds';
 import {useStorage} from './hooks/useStorage';
 import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
@@ -20,6 +21,7 @@ function App() {
   const [register, setRegister] = useState(false);
   const [signIn, setSignIn] = useState(false);
   const [profile, setProfile] = useState(false);
+  const [createForm, setCreateForm] = useState(false);
 
   const [profileView, setProfileView] = useState(null);
 
@@ -54,11 +56,26 @@ function App() {
       setRegister(!register);
       setSignIn(false);
       setProfile(false);
+      setCreateForm(false);
     }
   }
 
   const signInHandler = () => {
     setSignIn(!signIn);
+  }
+
+  const profileClickCatcher = (e) => {
+
+    const target = e.target.id;
+
+    switch (target) {
+      case "Create":
+        setCreateForm(true);
+        break;
+      default:
+        break;
+    }
+
   }
 
   useEffect(() => {
@@ -96,7 +113,10 @@ function App() {
             {signIn ? <Login  onClose={closeModal} closeHandler={{setRegister, setSignIn}}/> : <Redirect to='/'/>}
           </Route>
           <Route path='/profile'>
-            {profile ? <Profile onClose={closeModal} profile={profileView}/> : <Redirect to='/'/>}
+            {profile ? <Profile onClose={closeModal} profile={profileView} clickCatcher={profileClickCatcher}/> : <Redirect to='/'/>}
+          </Route>
+          <Route path='/createCollection'>
+            {createForm ? <CreateCollection onClose={closeModal} /> : null}
           </Route>
         </Switch>
 

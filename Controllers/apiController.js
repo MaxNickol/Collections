@@ -4,22 +4,49 @@ const Collections = require('../models/Collections');
 class apiController {
 
     async addCollection(req, res) {
-        const {title, description, topic, owner_id} = req.body;
-        try{
-            const createdCollection = await new Collections({
-                title,
-                description,
-                topic,
-                owner_id
-            })
-    
-            await createdCollection.save();
-    
-            res.json({message: 'Collection was created!'})
+        const {title, description, topic, owner_username} = req.body;
+
+        if(req.file) {
+            const image = {
+                originalName: req.file.originalname,
+                url: req.file.path
+            }
+            try{
+                const createdCollection = await new Collections({
+                    title,
+                    description,
+                    image_url: image.url,
+                    topic,
+                    owner_username
+                })
+                await createdCollection.save();
+
+                res.json({message: 'Collection was created!'})
+            }
+            catch(err) {
+                res.json({err})
+            }
         }
-        catch(e) {
-            res.json({error: e});
+        else{
+            try{
+                const createdCollection = await new Collections({
+                    title,
+                    description,
+                    topic,
+                    owner_username
+                })
+        
+                await createdCollection.save();
+    
+                res.json({message: 'Collection was created!'})
+            }
+            catch(e) {
+                res.json({error: e});
+            }
+
         }
+        
+        
         
     }
 
@@ -28,10 +55,10 @@ class apiController {
     }
 
     async getCollections(req, res) {
-        const {owner_id} = req.body;
+        const {owner_username} = req.body;
 
         try{
-            const allCollections = await Collections.find({owner_id:owner_id});
+            const allCollections = await Collections.find({owner_username:owner_username});
 
             res.status(200).json({collections: allCollections});
         }

@@ -60,12 +60,9 @@ const onListening = () => {
 
 const serverStart = async () => {
     try{
-
         await mongoose.connect('mongodb+srv://izuki13:admin@cluster0.ff8no.mongodb.net/auth_roles?retryWrites=true&w=majority')
         server.on('listening', onListening);
         server.listen(port);
-
-
     }
     catch(e) {
         console.log(e)
