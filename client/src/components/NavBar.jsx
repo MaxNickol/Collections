@@ -24,7 +24,7 @@ export const NavBar = ({clickCatcher}) => {
 
             {creds.isAuth ? (
                 <>
-                <NavLink to="/profile" activeClassName="active"><UserSVG id="Profile"/></NavLink>
+                <NavLink to="/profile" activeClassName="active" id="Profile" ><UserSVG id="Profile"/></NavLink>
                 <SearchSVG id="Search"/>
                
                 {settings}

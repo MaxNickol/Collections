@@ -4,7 +4,7 @@ const Collections = require('../models/Collections');
 class apiController {
 
     async addCollection(req, res) {
-        const {title, description, topic, owner_username} = req.body;
+        const {title, description, topic, owner_username} = JSON.parse(req.body.data);
 
         if(req.file) {
             const image = {
@@ -24,7 +24,7 @@ class apiController {
                 res.json({message: 'Collection was created!'})
             }
             catch(err) {
-                res.json({err})
+                res.json({message: "Error occured"})
             }
         }
         else{
@@ -41,7 +41,7 @@ class apiController {
                 res.json({message: 'Collection was created!'})
             }
             catch(e) {
-                res.json({error: e});
+                res.json({message: "Error occured"});
             }
 
         }

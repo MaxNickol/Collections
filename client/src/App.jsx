@@ -6,7 +6,6 @@ import {Login} from './components/Login';
 import {Profile} from './components/Profile';
 import {CreateCollection} from './components/CreateCollection';
 import {useCreds} from './hooks/useCreds';
-import {useStorage} from './hooks/useStorage';
 import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 
 import axios from 'axios';
@@ -26,11 +25,11 @@ function App() {
   const [profileView, setProfileView] = useState(null);
 
   const {login, logout, creds} = useCreds();
-  const user = useStorage();
+  
 
   const isAuth = !!creds.token;
   
-  const clickCatcher = (event) => {
+  const navbarCatcher = (event) => {
     
     const target = event.target.id;
 
@@ -82,6 +81,7 @@ function App() {
 
     const fetchProfile = async () => {
 
+      const user = JSON.parse(localStorage.getItem('CredsInfo'));
       
       if(user) {
         const response = await axios.post('/api/profile', {
@@ -94,8 +94,9 @@ function App() {
     }
 
     fetchProfile();
-
-  }, [creds.token, user]);
+    
+  
+  }, [creds.token]);
 
   return (
     <div className="App">
@@ -103,7 +104,7 @@ function App() {
       <Router>
 
         
-        <NavBar clickCatcher={clickCatcher}/>
+        <NavBar clickCatcher={navbarCatcher}/>
 
         <Switch>
           <Route path='/registration' >
@@ -116,10 +117,9 @@ function App() {
             {profile ? <Profile onClose={closeModal} profile={profileView} clickCatcher={profileClickCatcher}/> : <Redirect to='/'/>}
           </Route>
           <Route path='/createCollection'>
-            {createForm ? <CreateCollection onClose={closeModal} /> : null}
+            {createForm ? <CreateCollection onClose={closeModal} username={profileView.username}/> : null}
           </Route>
         </Switch>
-
 
       </Router>
       </credsContext.Provider>
