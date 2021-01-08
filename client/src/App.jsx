@@ -21,12 +21,13 @@ function App() {
   const [signIn, setSignIn] = useState(false);
   const [profile, setProfile] = useState(false);
   const [createForm, setCreateForm] = useState(false);
+  const [collectionsTable, setCollectionsTable] = useState(true);
+
 
   const [profileView, setProfileView] = useState(null);
 
   const {login, logout, creds} = useCreds();
   
-
   const isAuth = !!creds.token;
   
   const navbarCatcher = (event) => {
@@ -71,6 +72,9 @@ function App() {
       case "Create":
         setCreateForm(true);
         break;
+        case "Collections":
+          setCollectionsTable(!collectionsTable);
+          break;
       default:
         break;
     }
@@ -114,7 +118,7 @@ function App() {
             {signIn ? <Login  onClose={closeModal} closeHandler={{setRegister, setSignIn}}/> : <Redirect to='/'/>}
           </Route>
           <Route path='/profile'>
-            {profile ? <Profile onClose={closeModal} profile={profileView} clickCatcher={profileClickCatcher}/> : <Redirect to='/'/>}
+            {profile ? <Profile onClose={closeModal} profile={profileView} clickCatcher={profileClickCatcher} collectionsTable={collectionsTable}/> : <Redirect to='/'/>}
           </Route>
           <Route path='/createCollection'>
             {createForm ? <CreateCollection onClose={closeModal} username={profileView.username}/> : null}

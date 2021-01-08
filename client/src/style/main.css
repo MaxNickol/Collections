@@ -136,9 +136,10 @@ html, body, #root {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    align-items: center;
     margin-left: 2%;
     margin-top: 2%;
-    width: 35%;
+    width: 96%;
     height: fit-content;
     background-color: rgba(146, 134, 122, 0.7);
     border: 1px solid #000000;
@@ -195,7 +196,7 @@ html, body, #root {
     fill: rgba(36,36,36);
     height: 100%;
     width: 100%;
-    transition: 0.1s ease-in-out;
+    transition: 0.2s ease-in-out;
 }
 
 
@@ -316,6 +317,13 @@ html, body, #root {
     transition: 0.3s ease-in-out;
 }
 
+.edit {
+    fill: rgba(152, 148, 137);
+    width: 20%;
+    height: 20%;
+    transition: 0.2s ease-in-out;
+}
+
 .header {
     font-family: "Alata"; 
     font-size: 30px;
@@ -363,9 +371,32 @@ html, body, #root {
     transition: 0.3s ease-in-out;
 }
 
+.hover {
+    transition: 0.2s ease-in-out;
+}
 
 
 /* <-----------------------EVENTS-------------------------> */
+
+.create-btn:focus{
+    outline:none;
+}
+
+.edit:hover {
+    cursor: pointer;
+    fill: black;
+    transform: scale(1.2);
+}
+
+.close-red:hover {
+    fill: rgba(223, 0, 0, 0.726);
+}
+
+.svg-green:hover {
+    fill: rgb(51, 255, 0);
+}
+    
+
 
 .confirm-wrapper > a:hover {
     transform: scale(1.2);
@@ -402,3 +433,8 @@ html, body, #root {
     color: white;
 }
 
+.hover:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    box-shadow: 10px 10px 10px rgb(160, 160, 160);
+}

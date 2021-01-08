@@ -10,5 +10,7 @@ router.post('/profile', apiController.getProfile);
 router.post('/createColleciton', apiController.addCollection);
 router.post('/getAllCollections', apiController.getCollections);
 
+router.post('/deleteCollection', apiController.delete);
+
 
 module.exports = router;

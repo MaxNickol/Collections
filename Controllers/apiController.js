@@ -54,6 +54,18 @@ class apiController {
         
     }
 
+    async delete(req, res) {
+        const {id} = req.body;
+
+        await Collections.deleteOne({_id:id});
+        
+        res.json({message:'Collection was removed!'})
+    }
+
+    async removeItem(req, res) {
+
+    }
+
     async getCollections(req, res) {
         const {owner_username} = req.body;
 
