@@ -9,6 +9,9 @@ router.post('/createCollection', parser.single('image'), apiController.addCollec
 router.post('/profile', apiController.getProfile);
 router.post('/createColleciton', apiController.addCollection);
 router.post('/getAllCollections', apiController.getCollections);
+router.post('/getParticularCollection', apiController.getCollection);
+router.post('/editCollection', apiController.editCollection);
+
 
 router.post('/deleteCollection', apiController.delete);
 

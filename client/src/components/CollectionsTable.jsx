@@ -1,22 +1,14 @@
 import React, {useState, useEffect} from 'react';
+import {NavLink} from 'react-router-dom';
 import {ReactComponent as EditSVG} from '../layout/edit.svg';
 import {ReactComponent as CloseSVG} from '../layout/close.svg';
 import ReactMarkdown from 'react-markdown';
 import axios from 'axios';
 
-export const CollectionsTable = ({username, catcher}) => {
+export const CollectionsTable = ({username, catcher, actionHandler, render}) => {
 
     const [allCollections, setAllCollections] = useState([]);
-
-    const actionHandler = async (id) => {
-
-        const response = await axios.post('/api/deleteCollection', {id: id});
-
-        console.log(id);
-        console.log(response.data.message);
-
-    }
-
+    
 
     useEffect(() => {
         const fetchAllCollections = async () => {
@@ -29,7 +21,7 @@ export const CollectionsTable = ({username, catcher}) => {
             }
         }
         fetchAllCollections();
-    }, [username, actionHandler])
+    }, [username, render])
 
     return(
         <div className="d-flex flex-row flex-wrap align-items-center" onClick={(e) => catcher(e)}>
@@ -42,11 +34,11 @@ export const CollectionsTable = ({username, catcher}) => {
                 <div className="col-md-7 pl-0" id={collection._id}>
                     <div className="card-body" id={collection._id}>
                         <h5 className="card-title" id={collection._id}>{collection.title}</h5>
-                        <ReactMarkdown source={collection.description} className="card-text" id={collection.id} />
+                        <ReactMarkdown source={collection.description} className="card-text text-truncate" id={collection.id} />
                         <p className="card-text" id={collection._id}><small className="text-muted" id={collection._id}>{collection.topic}</small></p>
                     </div>
-                    <EditSVG className="edit" id="Edit"/>
-                    <CloseSVG className="edit close-red" id="Delete" onClick={() => actionHandler(collection._id)}/>
+                    <NavLink to="/EditCollection" id="Edit" className="edit" onClick={(e) => actionHandler(e, collection._id)}><EditSVG className="edit" id="Edit"/></NavLink>
+                    <CloseSVG className="edit close-red" id="Delete" onClick={(e) => actionHandler(e, collection._id)}/>
                 </div>
             </div>
             </div>

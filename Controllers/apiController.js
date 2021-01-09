@@ -66,6 +66,26 @@ class apiController {
 
     }
 
+    async getCollection(req, res) {
+        
+        const id = req.body.id;
+
+        if(!id) {
+            res.json({message: "Something wrong!"})
+        }
+        else{
+            const foundCollection = await Collections.findOne({_id: id});
+
+            if(foundCollection) {
+                res.json({collection: foundCollection});
+            }
+            else{
+                res.json({message: "Collection is not found!"});
+            }
+        }
+
+    }
+
     async getCollections(req, res) {
         const {owner_username} = req.body;
 
@@ -82,6 +102,28 @@ class apiController {
 
     async editCollection(req, res) {
         
+        const id = req.body.id;
+        const {title, description, topic} = req.body;
+
+        if(!title || !description || !topic) {
+            res.json({message:"You should fill in each field!"})
+        }
+
+        const updatedCollection = await Collections.findOneAndUpdate({_id:id}, {
+            title: title,
+            description: description,
+            topic: topic
+        });
+
+        if(updatedCollection) {
+            updatedCollection.save();
+            res.json({message: "Collection was updated!"});
+        }
+        else{
+            res.json({message:"Something wrong!"})
+        }
+
+
     }
 
     async editItem(req, res) {

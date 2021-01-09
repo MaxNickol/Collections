@@ -3,12 +3,12 @@ import {CollectionsTable} from './CollectionsTable';
 import {ReactComponent as PlusSVG} from '../layout/plus.svg';
 import {NavLink} from 'react-router-dom';
 
-export const Profile = ({onClose, profile, clickCatcher, collectionsTable }) => {
+export const Profile = ({onClose, profile, clickCatcher, collectionsTable, actionHandler, render }) => {
 
-    
-    
     const collectionsCatcher = (e) => {
-        console.log(e.target.id)
+        const target = e.target.id;
+
+        console.log(target);
     }
 
     return(
@@ -24,7 +24,7 @@ export const Profile = ({onClose, profile, clickCatcher, collectionsTable }) => 
                     <button className="create-btn" id="Collections">Collections</button>
                     <NavLink to="/createCollection" id="Create"><PlusSVG className="svg svg-green" id="Create"/></NavLink>
                 </div>
-                {collectionsTable ? <CollectionsTable username={profile.username} catcher={collectionsCatcher}/> : null}
+                {collectionsTable ? <CollectionsTable username={profile.username} catcher={collectionsCatcher} actionHandler={actionHandler} render={render}/> : null}
             </div>
         </div>
     )
