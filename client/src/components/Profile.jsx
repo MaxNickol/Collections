@@ -5,12 +5,6 @@ import {NavLink} from 'react-router-dom';
 
 export const Profile = ({onClose, profile, clickCatcher, collectionsTable, actionHandler, render }) => {
 
-    const collectionsCatcher = (e) => {
-        const target = e.target.id;
-
-        console.log(target);
-    }
-
     return(
         <div className="overlay" onClick={(e) => onClose(e)}>
             <div className="profile" onClick={(e) => clickCatcher(e)}>
@@ -24,7 +18,7 @@ export const Profile = ({onClose, profile, clickCatcher, collectionsTable, actio
                     <button className="create-btn" id="Collections">Collections</button>
                     <NavLink to="/createCollection" id="Create"><PlusSVG className="svg svg-green" id="Create"/></NavLink>
                 </div>
-                {collectionsTable ? <CollectionsTable username={profile.username} catcher={collectionsCatcher} actionHandler={actionHandler} render={render}/> : null}
+                {collectionsTable ? <CollectionsTable username={profile.username} catcher={clickCatcher} actionHandler={actionHandler} render={render}/> : null}
             </div>
         </div>
     )

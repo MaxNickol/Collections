@@ -375,6 +375,34 @@ html, body, #root {
     transition: 0.2s ease-in-out;
 }
 
+.goto {
+    margin-left: 65%;
+    text-decoration: none !important;
+    color: rgba(182, 187, 191);
+    font-family: "Alata";
+    font-size: 20px;
+}
+
+.grid-page {
+    display: grid;
+    grid-template-columns: 50% 40%;
+    grid-template-rows: 80% 20%;
+}
+
+.button-grid {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.table-auto {
+    overflow-y: auto !important;
+    grid-column: 2;
+    grid-row: 1;
+}
+
 
 /* <-----------------------EVENTS-------------------------> */
 
@@ -435,6 +463,5 @@ html, body, #root {
 
 .hover:hover {
     cursor: pointer;
-    transform: scale(1.05);
-    box-shadow: 10px 10px 10px rgb(160, 160, 160);
+    transform: scale(1.2);
 }

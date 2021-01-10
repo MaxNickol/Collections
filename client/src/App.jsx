@@ -6,6 +6,7 @@ import {Login} from './components/Login';
 import {Profile} from './components/Profile';
 import {CreateCollection} from './components/CreateCollection';
 import {EditForm} from './components/EditForm';
+import {Collection} from './components/Collection';
 import {useCreds} from './hooks/useCreds';
 import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 
@@ -24,7 +25,8 @@ function App() {
   const [createForm, setCreateForm] = useState(false);
   const [collectionsTable, setCollectionsTable] = useState(true);
   const [editForm, setEditForm] = useState(false);
-
+  const [collection, setCollection] = useState(false);
+  // const [collectionView, setCollectionView] = useState([]);
 
   const [profileView, setProfileView] = useState(null);
 
@@ -43,6 +45,9 @@ function App() {
         break;
       case "Logout":
         setProfile(false);
+        setCollection(false);
+        setEditForm(false);
+        setCreateForm(false);
         logout();
         break;
       case "Profile":
@@ -60,6 +65,7 @@ function App() {
       setProfile(false);
       setCreateForm(false);
       setEditForm(false);
+      setCollection(false);
     }
   }
 
@@ -67,17 +73,21 @@ function App() {
     setSignIn(!signIn);
   }
 
-  const profileClickCatcher = (e) => {
+  const profileClickCatcher = async (e, id) => {
 
     const target = e.target.id;
+    
 
     switch (target) {
       case "Create":
         setCreateForm(true);
         break;
-        case "Collections":
-          setCollectionsTable(!collectionsTable);
-          break;
+      case "Collections":
+        setCollectionsTable(!collectionsTable);
+        break;
+      case "Details":
+        setCollection(true);
+        break;
       default:
         break;
     }
@@ -150,10 +160,13 @@ function App() {
             {profile ? <Profile onClose={closeModal} profile={profileView} clickCatcher={profileClickCatcher} collectionsTable={collectionsTable} actionHandler={actionHandler} render={render}/> : <Redirect to='/'/>}
           </Route>
           <Route path='/createCollection'>
-            {createForm ? <CreateCollection onClose={closeModal} username={profileView.username}/> : null}
+            {createForm ? <CreateCollection onClose={closeModal} username={profileView.username}/> : <Redirect to="/" />}
           </Route>
           <Route path='/EditCollection'>
-            {editForm ? <EditForm onClose={closeModal} collection={editCollection}/>: null}
+            {editForm ? <EditForm onClose={closeModal} collection={editCollection}/>: <Redirect to="/" />}
+          </Route>
+          <Route path='/Collection'>
+            {collection ? <Collection onClose={closeModal} />: <Redirect to="/" />}
           </Route>
         </Switch>
 

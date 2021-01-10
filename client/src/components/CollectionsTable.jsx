@@ -24,9 +24,9 @@ export const CollectionsTable = ({username, catcher, actionHandler, render}) => 
     }, [username, render])
 
     return(
-        <div className="d-flex flex-row flex-wrap align-items-center" onClick={(e) => catcher(e)}>
+        <div className="d-flex flex-row flex-wrap align-items-center">
         {allCollections.map((collection, index) => (
-            <div className="card mb-3 ml-4 mt-4 text-break hover" style={{maxWidth:"540px", minWidth:"540px", maxHeight:"230px"}} key={index} id={collection._id}>
+            <div className="card mb-3 ml-4 mt-4 text-break" onClick={(e) => catcher(e, collection._id)} style={{maxWidth:"540px", minWidth:"540px", maxHeight:"230px"}} key={index} id={collection._id}>
             <div className="row g-0" id={collection._id}>
                 <div className="col-md-5 pr-0" id={collection._id}>
                 {collection.image_url ? <img src={collection.image_url} style={{width:"200px", height:"225px"}} id={collection._id} alt="pic"/> : null}
@@ -39,6 +39,7 @@ export const CollectionsTable = ({username, catcher, actionHandler, render}) => 
                     </div>
                     <NavLink to="/EditCollection" id="Edit" className="edit" onClick={(e) => actionHandler(e, collection._id)}><EditSVG className="edit" id="Edit"/></NavLink>
                     <CloseSVG className="edit close-red" id="Delete" onClick={(e) => actionHandler(e, collection._id)}/>
+                    <NavLink to={`/Collection?id=${collection._id}`} id="Details" className="goto hover"><p id="Details" className="goto hover">Details</p></NavLink>
                 </div>
             </div>
             </div>

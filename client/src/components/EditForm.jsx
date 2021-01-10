@@ -14,8 +14,6 @@ export const EditForm = ({onClose, collection}) => {
 
     const [msg, setMsg] = useState('')
 
-    console.log(collectionForm)
-
     const formHanlder = (event) => {
         setCollectionForm({...collectionForm, [event.target.id]: event.target.value});
     }
